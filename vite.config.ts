@@ -5,6 +5,9 @@ import { defineConfig } from "vite";
 const iife = process.env.BUILD === "iife";
 
 export default defineConfig({
+  // Strudel reads process.env.NODE_ENV; a bundler defines it for the ESM build,
+  // but a plain <script> page has no process at all
+  define: iife ? { "process.env.NODE_ENV": JSON.stringify("production") } : {},
   build: {
     target: "es2022",
     emptyOutDir: !iife,
