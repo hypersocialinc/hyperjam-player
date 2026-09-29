@@ -2,6 +2,7 @@
 import { HyperJamPlayer, setEngineLoader, type EngineLoader } from "./player";
 
 export { HyperJamPlayer, setEngineLoader };
+export { THEME_VARS } from "./styles";
 export type { EngineLoader };
 export type { Engine, HapEvent, Lane } from "./engine/types";
 export type { Track } from "./track";
