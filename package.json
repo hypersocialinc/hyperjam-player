@@ -1,0 +1,43 @@
+{
+  "name": "@hyperjam/player",
+  "version": "0.1.0",
+  "private": true,
+  "description": "A <hyperjam-player> web component that plays Strudel code: a record sleeve, a spinning vinyl, and the code lighting up as it plays.",
+  "license": "AGPL-3.0-or-later",
+  "type": "module",
+  "main": "./dist/hyperjam-player.js",
+  "module": "./dist/hyperjam-player.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/hyperjam-player.js"
+    },
+    "./standalone": "./dist/hyperjam-player.iife.js"
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build && BUILD=iife vite build && tsc -p tsconfig.build.json",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@strudel/core": "^1.2.6",
+    "@strudel/mini": "^1.2.6",
+    "@strudel/soundfonts": "^1.2.6",
+    "@strudel/tonal": "^1.2.6",
+    "@strudel/transpiler": "^1.2.6",
+    "@strudel/webaudio": "^1.3.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.6.0",
+    "vite": "^6.0.0",
+    "vitest": "^2.1.0"
+  }
+}

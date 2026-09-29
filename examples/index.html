@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>HyperJam Player examples</title>
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,700..900&family=Nunito:wght@600;800&display=swap">
+  <style>
+    :root { color-scheme: dark; }
+    body { margin: 0; background: #120E13; color: #EFE4D4; font: 16px/1.5 Nunito, system-ui, sans-serif; padding: 32px 16px 64px; }
+    main { max-width: 760px; margin: 0 auto; display: grid; gap: 40px; }
+    h1 { margin: 0; font: 900 44px/1 Archivo, sans-serif; font-stretch: 72%; }
+    h2 { margin: 0 0 4px; font: 900 24px/1.1 Archivo, sans-serif; font-stretch: 78%; }
+    p { margin: 0 0 14px; color: #A3948B; max-width: 60ch; }
+    code { font-family: "JetBrains Mono", ui-monospace, monospace; font-size: 13px; color: #EFE4D4; }
+    .narrow { max-width: 340px; }
+    .wide { aspect-ratio: 16 / 9; }
+    .wide hyperjam-player { height: 100%; }
+    .swaps { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 12px; }
+    .swaps button { border: 1.5px solid #3a2f3d; background: none; color: #EFE4D4; font: 800 13px Nunito, sans-serif; padding: 8px 14px; border-radius: 11px; cursor: pointer; }
+    .swaps button:focus-visible { outline: 2px solid #4FE0BE; outline-offset: 2px; }
+    #log { font: 12px "JetBrains Mono", monospace; color: #A3948B; margin-top: 8px; }
+  </style>
+  <script type="module" src="../src/index.ts"></script>
+</head>
+<body>
+<main>
+  <header>
+    <h1>HyperJam Player</h1>
+    <p>A web component that plays Strudel code. Press play on any of these.</p>
+  </header>
+
+  <section>
+    <h2>A track from HyperJam</h2>
+    <p><code>&lt;hyperjam-player track="tidal-arpeggio"&gt;</code> loads the track, its cover and its code.</p>
+    <hyperjam-player id="slug" track="tidal-arpeggio"></hyperjam-player>
+  </section>
+
+  <section>
+    <h2>Your own code</h2>
+    <p>Inline Strudel in a <code>&lt;script type="text/strudel"&gt;</code>. No cover, so it gets a plain sleeve in its colour.</p>
+    <div class="narrow">
+      <hyperjam-player id="inline" title="Four on the floor" author="@you" color="#4FE0BE">
+        <script type="text/strudel">
+          stack(
+            s("bd*4").bank("RolandTR909").gain(0.8),
+            s("~ cp ~ cp").bank("RolandTR808").gain(0.5),
+            s("hh*8").bank("RolandTR909").gain(0.25),
+            note("<c2 c2 eb2 g1>").s("sawtooth").lpf(500).gain(0.45)
+          )
+        </script>
+      </hyperjam-player>
+    </div>
+  </section>
+
+  <section>
+    <h2>Live swap</h2>
+    <p>Buttons call <code>player.setCode(code)</code>. While it plays, the new code crossfades in on its own beat 1. This is what the live API will call.</p>
+    <div class="wide">
+      <hyperjam-player id="live" title="Live set" author="@live" color="#FFC266" bpm="120"
+        ></hyperjam-player>
+    </div>
+    <div class="swaps">
+      <button type="button" data-swap="0">Drums only</button>
+      <button type="button" data-swap="1">Add a bassline</button>
+      <button type="button" data-swap="2">Pads and a lead</button>
+    </div>
+    <div id="log" aria-live="polite"></div>
+  </section>
+</main>
+<script type="module">
+  const live = document.getElementById("live");
+  const SWAPS = [
+`stack(
+  s("bd ~ bd ~").bank("RolandTR909"),
+  s("hh*8").bank("RolandTR909").gain(0.3)
+)`,
+`stack(
+  s("bd*4").bank("RolandTR909"),
+  s("~ sd").bank("RolandTR909").gain(0.6),
+  note("<[c2 ~ c3 ~] [eb2 ~ eb3 ~]>").s("sawtooth").lpf(700).gain(0.4)
+)`,
+`stack(
+  s("bd*4").bank("RolandTR909"),
+  s("hh*16").bank("RolandTR909").gain(0.2),
+  note("<[c4,eb4,g4] [bb3,d4,f4]>").s("gm_pad_warm").gain(0.35).room(0.5),
+  note("c5 eb5 g5 bb5").s("triangle").gain(0.25).delay(0.3)
+)`,
+  ];
+  live.setCode(SWAPS[0]);
+  document.querySelectorAll(".swaps button").forEach((b) => b.addEventListener("click", () => live.setCode(SWAPS[Number(b.dataset.swap)])));
+  // counters the checks read; also a quick way to see the events fire
+  window.__haps = { slug: 0, inline: 0, live: 0 };
+  window.__errors = [];
+  for (const id of ["slug", "inline", "live"]) {
+    const el = document.getElementById(id);
+    el.addEventListener("hap", () => window.__haps[id]++);
+    el.addEventListener("error", (e) => window.__errors.push(`${id}: ${e.detail.message}`));
+  }
+  const log = document.getElementById("log");
+  live.addEventListener("play", () => (log.textContent = "live: playing"));
+  live.addEventListener("pause", () => (log.textContent = "live: paused"));
+</script>
+</body>
+</html>

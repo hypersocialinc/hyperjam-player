@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>HyperJam Player, one script tag</title>
+  <link rel="icon" href="data:,">
+  <style>
+    :root { color-scheme: dark; }
+    body { margin: 0; background: #120E13; color: #EFE4D4; font: 16px/1.5 system-ui, sans-serif; padding: 32px 16px; }
+    hyperjam-player { max-width: 640px; margin: 0 auto; }
+  </style>
+  <!-- the single-file build: run `pnpm build` first -->
+  <script src="../dist/hyperjam-player.iife.js"></script>
+</head>
+<body>
+  <hyperjam-player id="p" track="night-bus-soul"></hyperjam-player>
+  <script>
+    window.__haps = 0; window.__errors = [];
+    const p = document.getElementById("p");
+    p.addEventListener("hap", () => window.__haps++);
+    p.addEventListener("error", (e) => window.__errors.push(e.detail.message));
+  </script>
+</body>
+</html>
