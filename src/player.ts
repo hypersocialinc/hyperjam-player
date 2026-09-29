@@ -86,7 +86,7 @@ const CSS = /* css */ `
 type State = "idle" | "loading" | "playing";
 
 export class HyperJamPlayer extends HTMLElement {
-  static observedAttributes = ["track", "code", "title", "author", "cover", "color", "api", "bpm"];
+  static observedAttributes = ["track", "code", "name", "author", "cover", "color", "api", "bpm"];
 
   #root: ShadowRoot;
   #track: Track | null = null;
@@ -215,7 +215,7 @@ export class HyperJamPlayer extends HTMLElement {
     const slug = this.getAttribute("track");
     const inline = this.getAttribute("code") ?? this.querySelector('script[type="text/strudel"]')?.textContent ?? "";
     const base: Track = {
-      name: this.getAttribute("title") ?? "",
+      name: this.getAttribute("name") ?? "",
       author: this.getAttribute("author") ?? "",
       code: dedent(inline),
       color: this.getAttribute("color") ?? undefined,

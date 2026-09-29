@@ -27,7 +27,7 @@ import "@hyperjam/player"; // defines <hyperjam-player>
 Your own code can go in an inline `<script type="text/strudel">` or the `code` attribute:
 
 ```html
-<hyperjam-player title="Four on the floor" author="@you" color="#4FE0BE">
+<hyperjam-player name="Four on the floor" author="@you" color="#4FE0BE">
   <script type="text/strudel">
     stack(
       s("bd*4").bank("RolandTR909"),
@@ -52,7 +52,7 @@ pnpm test
 | --- | --- |
 | `track` | A HyperJam track slug. Loads its name, author, colour, tempo, code and cover. |
 | `code` | Strudel code to play. You can also use a child `<script type="text/strudel">`. |
-| `title`, `author` | Override or supply the name and byline. |
+| `name`, `author` | Override or supply the track name and byline. |
 | `cover` | A cover image URL. The vinyl takes its colour from the image, so the image must allow cross-origin reads. Without a cover, a plain sleeve in the track colour is shown. |
 | `color` | The track colour, as hex. |
 | `bpm` | The tempo, used to time live swaps. When it's missing, it's read from the code. |
