@@ -10,10 +10,10 @@ code you give it. While playing, it can swap in new code live.
 
 ## Use it
 
-With one script tag, using the single-file build:
+With one script tag, served from hyperjam.ai:
 
 ```html
-<script src="hyperjam-player.iife.js"></script>
+<script src="https://hyperjam.ai/player.js"></script>
 
 <hyperjam-player track="tidal-arpeggio"></hyperjam-player>
 ```
@@ -50,6 +50,15 @@ pnpm install
 pnpm dev     # open http://localhost:5173/examples/
 pnpm build   # dist/hyperjam-player.js (ESM) and dist/hyperjam-player.iife.js (one file)
 pnpm test
+```
+
+### For coding agents
+
+This repo ships an [agent skill](skills/hyperjam-player/SKILL.md) that teaches Claude Code,
+Cursor, Codex and other agents to add the player to a site:
+
+```sh
+npx skills add hypersocialinc/hyperjam-player
 ```
 
 ## Attributes
