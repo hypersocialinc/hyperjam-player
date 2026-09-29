@@ -138,6 +138,11 @@ export class HyperJamPlayer extends HTMLElement {
   connectedCallback() {
     if (!this.hasAttribute("fonts") || this.getAttribute("fonts") !== "none") injectFonts();
     void this.#init();
+    // Loaded by a <script> in <head>, the element upgrades before its inline
+    // <script type="text/strudel"> child is parsed; read it again once it is.
+    if (document.readyState === "loading" && !this.hasAttribute("code") && !this.hasAttribute("track")) {
+      document.addEventListener("DOMContentLoaded", () => this.isConnected && void this.#init(), { once: true });
+    }
   }
 
   disconnectedCallback() {
