@@ -73,7 +73,7 @@ npx skills add hypersocialinc/hyperjam-player
 | `bpm` | The tempo, used to time live swaps. When it's missing, it's read from the code. |
 | `api` | A different HyperJam API base URL. |
 | `fonts="none"` | Don't add the Google Fonts stylesheet to the page. |
-| `theme="light"` | A light card for light pages. Dark is the default. |
+| `theme` | `dark` (default), `light`, or `auto` to follow the viewer's light or dark system setting. |
 | `size="compact"` | One row: the record, the title and the play key, without the code. |
 
 Give the element a height (for example, fill a 16:9 box) and the code area stretches to fill it.
@@ -101,6 +101,35 @@ Only one player plays at a time. Starting another stops the one playing.
 | `play`, `pause` | none |
 | `hap` | `{ starts, at, dur, lane }` for every sound: the token offsets in the code, the AudioContext time it sounds, how long it lasts, and its lane (`drums`, `bass`, `chords` or `melody`) |
 | `error` | `{ message, cause }` |
+
+### Theming
+
+Set these CSS variables on the element, or on any parent, to match your site. Anything you
+leave out keeps its default, and `theme` still switches the light and dark defaults.
+
+```css
+hyperjam-player {
+  --hj-accent: #7C5CFF;      /* the Play key and the level meter */
+  --hj-accent-text: #fff;    /* text on the Play key */
+  --hj-radius: 8px;
+  --hj-font: "Inter", system-ui, sans-serif;
+}
+```
+
+| Variable | What it colours |
+| --- | --- |
+| `--hj-bg` | The card. |
+| `--hj-text` | Title, links and code text. |
+| `--hj-muted` | The byline. |
+| `--hj-accent` | The Play key and meter. It also tints the card when the track has no colour of its own. |
+| `--hj-accent-text` | Text and icon on the Play key. |
+| `--hj-code-bg` | Behind the code. |
+| `--hj-focus` | Keyboard focus rings. |
+| `--hj-drums`, `--hj-bass`, `--hj-chords`, `--hj-melody` | Tokens as they light up, by part. |
+| `--hj-radius` | The card's corners. |
+| `--hj-font`, `--hj-title-font`, `--hj-code-font` | Body, title and code fonts. With your own fonts, also set `fonts="none"`. |
+
+A track's own `color` still tints the card and the vinyl.
 
 ### Styling
 

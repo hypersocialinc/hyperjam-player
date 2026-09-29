@@ -1,6 +1,6 @@
 ---
 name: hyperjam-player
-description: Put a playable Strudel music player on a website with one script tag, using the <hyperjam-player> web component, or embed a published HyperJam track with an iframe. Use when someone wants to add music, a beat, a Strudel pattern or live-coded audio to a web page, blog, portfolio or docs site, embed a HyperJam track, or swap Strudel code in a page while it plays.
+description: Put a playable Strudel music player on a website with one script tag, using the <hyperjam-player> web component, or embed a published HyperJam track with an iframe, and theme it to match the site (light, dark, auto, accent colour, fonts, radius). Use when someone wants to add music, a beat, a Strudel pattern or live-coded audio to a web page, blog, portfolio or docs site, embed a HyperJam track, or swap Strudel code in a page while it plays.
 ---
 
 # HyperJam Player
@@ -52,12 +52,41 @@ In React, pass its attributes as strings.
 | `color` | Track colour, hex. |
 | `cover` | Cover image URL. The vinyl takes its colour from it, so it must allow CORS. |
 | `bpm` | Tempo, used to time live swaps (read from the code if missing). |
-| `theme="light"` | Light card for light pages. Dark is the default. |
-| `size="compact"` | One row: record, title and play key, no code. Give it about 152 px of height. |
+| `theme` | `dark` (default), `light`, or `auto` to follow the viewer's system setting. |
+| `size="compact"` | One row: record, title and play key, plus the code when it is 720 px or wider. Give it about 152 px of height. |
 | `fonts="none"` | Don't add the Google Fonts stylesheet. |
 
 Give the element a height (for example `style="height:352px"`, or fill a 16:9 box) and
 the code area stretches to fill it.
+
+## Match the site's look
+
+First read the site's own colours, fonts and corner radius (its CSS variables, Tailwind
+config or design tokens), then set the player's variables to them. Put them on the
+element, or on a parent to theme every player on the page:
+
+```css
+hyperjam-player {
+  --hj-accent: #7C5CFF;        /* Play key and meter: use the site's primary colour */
+  --hj-accent-text: #fff;      /* must stay readable on --hj-accent */
+  --hj-bg: #0E1726;            /* card background */
+  --hj-text: #E6EDF7;
+  --hj-muted: #93A1B5;
+  --hj-radius: 8px;
+  --hj-font: "Inter", system-ui, sans-serif;
+}
+```
+
+All variables: `--hj-bg`, `--hj-text`, `--hj-muted`, `--hj-accent`, `--hj-accent-text`,
+`--hj-code-bg`, `--hj-focus`, `--hj-drums`, `--hj-bass`, `--hj-chords`, `--hj-melody`
+(token colours by part), `--hj-radius`, `--hj-font`, `--hj-title-font`, `--hj-code-font`.
+
+- Leave anything out and it keeps its default; `theme` still picks the light or dark defaults.
+- A site with light and dark modes: use `theme="auto"`, or set the variables inside the
+  site's own dark-mode selector.
+- With the site's own fonts, add `fonts="none"` so the player doesn't load Google Fonts.
+- Keep `--hj-text` on `--hj-bg`, and `--hj-accent-text` on `--hj-accent`, at 4.5:1 contrast or better.
+- A track's own `color` still tints the card and vinyl; that's intended.
 
 ## JavaScript
 
@@ -80,7 +109,8 @@ plays at a time on a page.
   style="border:0;border-radius:18px;max-width:100%"></iframe>
 ```
 
-- `?size=compact` (height 152) and `?theme=light` are optional.
+- Optional: `?size=compact` (height 152), `?theme=light` or `?theme=auto`, and
+  `?accent=7C5CFF` (hex, no `#`) for the Play key. Other variables need the script-tag path.
 - Pasting a `https://hyperjam.ai/tracks/<slug>` link into Notion, Ghost, Medium or
   Discourse turns it into the player automatically (oEmbed). WordPress, Discord and X
   show a link card instead; use the iframe there.
