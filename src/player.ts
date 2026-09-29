@@ -28,11 +28,14 @@ function injectFonts() {
 
 const CSS = /* css */ `
 :host{display:block;container-type:inline-size;--hj-stage:#1D1419;--hj-ink:#EFE4D4;--hj-muted:#A3948B;--hj-key:#EB6C32;--hj-key-top:#F58A55;--hj-edge:#9C4218;
+  --hj-code-bg:rgba(0,0,0,.28);--hj-code-ink:rgba(239,228,212,.5);--hj-code-fn:rgba(239,228,212,.72);--hj-code-cm:rgba(239,228,212,.3);--hj-shadow:0 10px 30px rgba(0,0,0,.25);
   --tc:#EB6C32;--vc:#2a2420;font-family:Nunito,system-ui,sans-serif;color:var(--hj-ink)}
 :host([hidden]){display:none}
+/* theme="light": a paper card for light pages */
+:host([theme=light]){--hj-stage:#F6EEE3;--hj-ink:#201B17;--hj-muted:#6E625A;--hj-code-bg:rgba(32,27,23,.06);--hj-code-ink:rgba(32,27,23,.55);--hj-code-fn:rgba(32,27,23,.8);--hj-code-cm:rgba(32,27,23,.4);--hj-shadow:0 6px 20px rgba(32,27,23,.12)}
 *{box-sizing:border-box}
 .card{position:relative;height:100%;display:grid;grid-template-columns:auto minmax(0,1fr);grid-template-areas:"deck info" "code code";gap:14px 16px;padding:16px;border-radius:18px;overflow:hidden;
-  background:linear-gradient(160deg,color-mix(in srgb,var(--tc) 16%,transparent),transparent 55%),var(--hj-stage);box-shadow:0 10px 30px rgba(0,0,0,.25);transition:background .6s}
+  background:linear-gradient(160deg,color-mix(in srgb,var(--tc) 16%,transparent),transparent 55%),var(--hj-stage);box-shadow:var(--hj-shadow);transition:background .6s}
 .deck{--sl:104px;grid-area:deck;position:relative;width:calc(var(--sl) * 1.3);height:var(--sl);align-self:start}
 .sleeve{position:absolute;left:0;top:0;width:var(--sl);aspect-ratio:1;border-radius:6px;z-index:2;background-size:cover;background-position:center;
   background-color:color-mix(in srgb,var(--tc) 24%,#2B2328);box-shadow:0 10px 22px rgba(0,0,0,.45),inset 0 0 0 1px rgba(255,255,255,.07)}
@@ -50,7 +53,7 @@ const CSS = /* css */ `
 .lab{position:absolute;inset:32%;border-radius:50%;background:var(--tc) center/cover}
 .playing .vinyl{transform:translateX(38%)}
 .info{grid-area:info;min-width:0;display:flex;flex-direction:column;justify-content:center;gap:4px}
-.title{margin:0;font:900 clamp(20px,6cqw,34px)/.95 Archivo,system-ui,sans-serif;font-stretch:72%;letter-spacing:-.01em;overflow-wrap:anywhere}
+.title{margin:0;color:inherit;font:900 clamp(20px,6cqw,34px)/.95 Archivo,system-ui,sans-serif;font-stretch:72%;letter-spacing:-.01em;overflow-wrap:anywhere}
 .by{font-weight:800;font-size:13px;color:var(--hj-muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .row{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-top:8px}
 .key{appearance:none;border:0;height:40px;padding:0 16px 0 12px;border-radius:13px;display:inline-flex;align-items:center;gap:6px;cursor:pointer;
@@ -63,12 +66,15 @@ const CSS = /* css */ `
 @keyframes breathe{0%,100%{box-shadow:0 4px 0 var(--hj-edge),0 0 0 0 rgba(235,108,50,.45)}50%{box-shadow:0 4px 0 var(--hj-edge),0 0 0 10px rgba(235,108,50,0)}}
 .jam{font-weight:800;font-size:13px;color:var(--hj-ink);text-decoration:none;opacity:.8;border-bottom:1.5px solid color-mix(in srgb,var(--tc) 70%,transparent)}
 .jam:hover{opacity:1}
+.title a{color:inherit;text-decoration:none}
+.title a:hover{text-decoration:underline;text-decoration-thickness:2px;text-underline-offset:3px}
+.title a:focus-visible{outline:2px solid #4FE0BE;outline-offset:3px;border-radius:4px}
 .msg{margin:6px 0 0;font-size:12.5px;font-weight:700;color:#FFB4A0;min-height:0}
 .msg:empty{display:none}
-.code{grid-area:code;margin:0;min-height:0;max-height:220px;overflow:auto;padding:12px 14px;border-radius:12px;background:rgba(0,0,0,.28);
-  font:500 11.5px/1.6 "JetBrains Mono",ui-monospace,monospace;white-space:pre;color:color-mix(in srgb,var(--tc) 45%,rgba(239,228,212,.5));tab-size:2;scrollbar-width:thin}
-.code .fn{color:rgba(239,228,212,.72)}
-.code .cm{color:rgba(239,228,212,.3)}
+.code{grid-area:code;margin:0;min-height:0;max-height:220px;overflow:auto;padding:12px 14px;border-radius:12px;background:var(--hj-code-bg);
+  font:500 11.5px/1.6 "JetBrains Mono",ui-monospace,monospace;white-space:pre;color:color-mix(in srgb,var(--tc) 45%,var(--hj-code-ink));tab-size:2;scrollbar-width:thin}
+.code .fn{color:var(--hj-code-fn)}
+.code .cm{color:var(--hj-code-cm)}
 .code .t{border-radius:3px;transition:color .12s,background-color .12s,text-shadow .12s}
 .code .t.on{color:var(--c);background:color-mix(in srgb,var(--c) 18%,transparent);text-shadow:0 0 10px var(--c)}
 .meter{display:inline-flex;gap:2px;align-items:flex-end;height:12px;margin-left:8px;vertical-align:middle;opacity:0;transition:opacity .3s}
@@ -80,6 +86,10 @@ const CSS = /* css */ `
   .deck{--sl:min(30cqw,240px)}
   .code{max-height:none}
 }
+/* size="compact": one row, the record and the controls, no code */
+:host([size=compact]) .card{grid-template-columns:auto minmax(0,1fr);grid-template-rows:minmax(0,1fr);grid-template-areas:"deck info";padding:16px;gap:0 18px;align-items:center}
+:host([size=compact]) .deck{--sl:min(104px,calc(100cqw * .26));align-self:center}
+:host([size=compact]) .code{display:none}
 @media (prefers-reduced-motion: reduce){.vinyl{transition:none}.idle .key{animation:none}.code .t{transition:none}}
 `;
 
@@ -87,6 +97,7 @@ type State = "idle" | "loading" | "playing";
 
 export class HyperJamPlayer extends HTMLElement {
   static observedAttributes = ["track", "code", "name", "author", "cover", "color", "api", "bpm"];
+  // theme and size are styling only (:host selectors), so they need no re-render
 
   #root: ShadowRoot;
   #track: Track | null = null;
@@ -222,7 +233,10 @@ export class HyperJamPlayer extends HTMLElement {
       cover: this.getAttribute("cover") ?? undefined,
       bpm: Number(this.getAttribute("bpm")) || undefined,
     };
-    if (slug) {
+    if (slug && base.code) {
+      // the page already has the track (a server-rendered embed): no fetch, no flash
+      this.#apply({ ...base, slug, name: base.name || slug, cover: base.cover });
+    } else if (slug) {
       this.#apply({ ...base, name: base.name || "Loading…", code: "" });
       try {
         const t = await fetchTrack(slug, this.getAttribute("api") ?? DEFAULT_API, load.signal);
@@ -245,11 +259,13 @@ export class HyperJamPlayer extends HTMLElement {
     const colour = t.color && /^#?[0-9a-f]{3,8}$/i.test(t.color) ? (t.color.startsWith("#") ? t.color : `#${t.color}`) : "#EB6C32";
     this.style.setProperty("--tc", colour);
     this.style.setProperty("--vc", colour);
-    this.#$(".title").innerHTML = `${escapeHtml(t.name)}<span class="meter" aria-hidden="true"><i></i><i></i><i></i><i></i></span>`;
+    const page = t.slug ? `${SITE}/tracks/${encodeURIComponent(t.slug)}` : "";
+    const name = page ? `<a href="${escapeHtml(page)}" target="_blank" rel="noopener">${escapeHtml(t.name)}</a>` : escapeHtml(t.name);
+    this.#$(".title").innerHTML = `${name}<span class="meter" aria-hidden="true"><i></i><i></i><i></i><i></i></span>`;
     this.#$(".by").textContent = t.author;
     const jam = this.#$<HTMLAnchorElement>(".jam");
-    jam.hidden = !t.slug;
-    if (t.slug) jam.href = `${SITE}/tracks/${encodeURIComponent(t.slug)}`;
+    jam.hidden = !page;
+    if (page) jam.href = page;
     this.#$(".key").setAttribute("aria-label", `Play ${t.name}`);
     this.#setCover(t.cover);
     this.#renderCode();
@@ -373,5 +389,5 @@ export class HyperJamPlayer extends HTMLElement {
 }
 
 function escapeHtml(s: string) {
-  return s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+  return s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
 }

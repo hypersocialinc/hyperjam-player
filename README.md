@@ -37,7 +37,13 @@ Your own code can go in an inline `<script type="text/strudel">` or the `code` a
 </hyperjam-player>
 ```
 
-The package isn't on npm yet. To try it locally:
+The package isn't on npm yet. It installs from GitHub, and builds itself on install (`prepare`):
+
+```sh
+pnpm add github:hypersocialinc/hyperjam-player#<commit>
+```
+
+To try it locally:
 
 ```sh
 pnpm install
@@ -50,7 +56,7 @@ pnpm test
 
 | Attribute | What it does |
 | --- | --- |
-| `track` | A HyperJam track slug. Loads its name, author, colour, tempo, code and cover. |
+| `track` | A HyperJam track slug. Loads its name, author, colour, tempo, code and cover. If `code` is set too, nothing is fetched: the attributes are used as they are, and the slug only links the title and "Jam on this in HyperJam" to the track's page. |
 | `code` | Strudel code to play. You can also use a child `<script type="text/strudel">`. |
 | `name`, `author` | Override or supply the track name and byline. |
 | `cover` | A cover image URL. The vinyl takes its colour from the image, so the image must allow cross-origin reads. Without a cover, a plain sleeve in the track colour is shown. |
@@ -58,6 +64,8 @@ pnpm test
 | `bpm` | The tempo, used to time live swaps. When it's missing, it's read from the code. |
 | `api` | A different HyperJam API base URL. |
 | `fonts="none"` | Don't add the Google Fonts stylesheet to the page. |
+| `theme="light"` | A light card for light pages. Dark is the default. |
+| `size="compact"` | One row: the record, the title and the play key, without the code. |
 
 Give the element a height (for example, fill a 16:9 box) and the code area stretches to fill it.
 
