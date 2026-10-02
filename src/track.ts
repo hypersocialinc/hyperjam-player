@@ -1,7 +1,7 @@
-// Loads a published HyperJam track by slug through Convex's public HTTP API.
+// Loads a published Fizz FM track by slug through Convex's public HTTP API.
 
 export const DEFAULT_API = "https://jovial-porcupine-426.convex.cloud";
-export const SITE = "https://hyperjam.ai";
+export const SITE = "https://fizz.fm";
 
 export type Track = {
   name: string;
@@ -30,9 +30,9 @@ export async function fetchTrack(slug: string, api = DEFAULT_API, signal?: Abort
     body: JSON.stringify({ path: "tracks:getBySlug", args: { slug }, format: "json" }),
     signal,
   });
-  if (!res.ok) throw new Error(`HyperJam API returned ${res.status}`);
+  if (!res.ok) throw new Error(`Fizz FM API returned ${res.status}`);
   const body = (await res.json()) as { status: string; value?: Row | null; errorMessage?: string };
-  if (body.status !== "success") throw new Error(body.errorMessage || "HyperJam API error");
+  if (body.status !== "success") throw new Error(body.errorMessage || "Fizz FM API error");
   const row = body.value;
   if (!row) throw new Error(`No public track called "${slug}"`);
   if (!row.heroCode) throw new Error(`"${row.name}" has no code to play`);
@@ -43,7 +43,7 @@ export async function fetchTrack(slug: string, api = DEFAULT_API, signal?: Abort
     color: row.color,
     bpm: row.bpm,
     slug: row.slug,
-    // the track's own cover, else the one hyperjam.ai hosts for it (may not exist)
+    // the track's own cover, else the one fizz.fm hosts for it (may not exist)
     cover: row.coverUrl || `${SITE}/covers/${encodeURIComponent(row.slug)}.jpg`,
   };
 }

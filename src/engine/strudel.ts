@@ -1,5 +1,5 @@
 // Real Strudel in the browser, loaded on the first play. The same modules in
-// scope and the same sample and soundfont banks as HyperJam's app and site, so
+// scope and the same sample and soundfont banks as Fizz FM's app and site, so
 // a track sounds here as it does there, and its code sounds the same pasted
 // into strudel.cc.
 

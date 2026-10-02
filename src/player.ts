@@ -60,7 +60,7 @@ export class HyperJamPlayer extends HTMLElement {
     <div class="by" part="author"></div>
     <div class="row">
       <button class="key" type="button" part="play">${PLAY}<span>Play</span></button>
-      <a class="jam" part="jam-link" target="_blank" rel="noopener" hidden>Jam on this in HyperJam</a>
+      <a class="jam" part="jam-link" target="_blank" rel="noopener" hidden>Jam on this in Fizz FM</a>
     </div>
     <p class="msg" role="status" aria-live="polite"></p>
   </div>

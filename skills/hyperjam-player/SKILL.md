@@ -1,9 +1,9 @@
 ---
 name: hyperjam-player
-description: Put a playable Strudel music player on a website with one script tag, using the <hyperjam-player> web component, or embed a published HyperJam track with an iframe, and theme it to match the site (light, dark, auto, accent colour, fonts, radius). Use when someone wants to add music, a beat, a Strudel pattern or live-coded audio to a web page, blog, portfolio or docs site, embed a HyperJam track, or swap Strudel code in a page while it plays.
+description: Put a playable Strudel music player on a website with one script tag, using the <hyperjam-player> web component, or embed a published Fizz FM track with an iframe, and theme it to match the site (light, dark, auto, accent colour, fonts, radius). Use when someone wants to add music, a beat, a Strudel pattern or live-coded audio to a web page, blog, portfolio or docs site, embed a Fizz FM track, or swap Strudel code in a page while it plays.
 ---
 
-# HyperJam Player
+# Fizz FM Player
 
 `<hyperjam-player>` plays [Strudel](https://strudel.cc) code on any web page. It looks
 like a record: a sleeve, a coloured vinyl that spins while it plays, and the code, with
@@ -11,15 +11,15 @@ each token lighting up as it sounds. It works in plain HTML and in any framework
 
 ## Pick the path
 
-- **A published HyperJam track, no code on the page:** use the iframe (below). The track
-  page's **Embed** button on hyperjam.ai gives the exact code.
+- **A published Fizz FM track, no code on the page:** use the iframe (below). The track
+  page's **Embed** button on fizz.fm gives the exact code.
 - **The user's own Strudel code, or a track they want to control from JavaScript:** load
   the script and use the element.
 
 ## Your own Strudel: one script tag
 
 ```html
-<script src="https://hyperjam.ai/player.js"></script>
+<script src="https://fizz.fm/player.js"></script>
 
 <hyperjam-player name="Four on the floor" author="@you" color="#4FE0BE">
   <script type="text/strudel">
@@ -46,7 +46,7 @@ In React, pass its attributes as strings.
 
 | Attribute | Use |
 | --- | --- |
-| `track` | A HyperJam track slug. With `code` also set, nothing is fetched and the slug only links to the track. |
+| `track` | A Fizz FM track slug. With `code` also set, nothing is fetched and the slug only links to the track. |
 | `code` | Strudel code (or use a child `<script type="text/strudel">`). |
 | `name`, `author` | Title and byline. |
 | `color` | Track colour, hex. |
@@ -104,14 +104,14 @@ plays at a time on a page.
 ## Embed a published track (iframe)
 
 ```html
-<iframe src="https://hyperjam.ai/embed/tidal-arpeggio" width="100%" height="352"
-  title="Tidal Arpeggio on HyperJam" allow="autoplay" loading="lazy"
+<iframe src="https://fizz.fm/embed/tidal-arpeggio" width="100%" height="352"
+  title="Tidal Arpeggio on Fizz FM" allow="autoplay" loading="lazy"
   style="border:0;border-radius:18px;max-width:100%"></iframe>
 ```
 
 - Optional: `?size=compact` (height 152), `?theme=light` or `?theme=auto`, and
   `?accent=7C5CFF` (hex, no `#`) for the Play key. Other variables need the script-tag path.
-- Pasting a `https://hyperjam.ai/tracks/<slug>` link into Notion, Ghost, Medium or
+- Pasting a `https://fizz.fm/tracks/<slug>` link into Notion, Ghost, Medium or
   Discourse turns it into the player automatically (oEmbed). WordPress, Discord and X
   show a link card instead; use the iframe there.
 
