@@ -1,5 +1,5 @@
 # The package itself is the only project; pnpm 8 refuses a workspace file without
-# packages when it prepares a git install (hyperjam.ai builds with pnpm 8).
+# packages when it prepares a git install (fizz.fm builds with pnpm 8).
 packages:
   - "."
 allowBuilds:

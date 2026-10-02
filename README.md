@@ -1,19 +1,19 @@
-# HyperJam Player
+# Fizz FM Player
 
 `<hyperjam-player>` is a web component that plays [Strudel](https://strudel.cc) code
 on any page. It looks like a record: a sleeve with the track's cover, a coloured vinyl that
 slides out and spins while it plays, and the code underneath, with each token lighting up
 in its part's colour as it sounds.
 
-It can play a published [HyperJam](https://hyperjam.ai) track by its slug, or any Strudel
+It can play a published [Fizz FM](https://fizz.fm) track by its slug, or any Strudel
 code you give it. While playing, it can swap in new code live.
 
 ## Use it
 
-With one script tag, served from hyperjam.ai:
+With one script tag, served from fizz.fm:
 
 ```html
-<script src="https://hyperjam.ai/player.js"></script>
+<script src="https://fizz.fm/player.js"></script>
 
 <hyperjam-player track="tidal-arpeggio"></hyperjam-player>
 ```
@@ -65,13 +65,13 @@ npx skills add hypersocialinc/hyperjam-player
 
 | Attribute | What it does |
 | --- | --- |
-| `track` | A HyperJam track slug. Loads its name, author, colour, tempo, code and cover. If `code` is set too, nothing is fetched: the attributes are used as they are, and the slug only links the title and "Jam on this in HyperJam" to the track's page. |
+| `track` | A Fizz FM track slug. Loads its name, author, colour, tempo, code and cover. If `code` is set too, nothing is fetched: the attributes are used as they are, and the slug only links the title and "Jam on this in Fizz FM" to the track's page. |
 | `code` | Strudel code to play. You can also use a child `<script type="text/strudel">`. |
 | `name`, `author` | Override or supply the track name and byline. |
 | `cover` | A cover image URL. The vinyl takes its colour from the image, so the image must allow cross-origin reads. Without a cover, a plain sleeve in the track colour is shown. |
 | `color` | The track colour, as hex. |
 | `bpm` | The tempo, used to time live swaps. When it's missing, it's read from the code. |
-| `api` | A different HyperJam API base URL. |
+| `api` | A different Fizz FM API base URL. |
 | `fonts="none"` | Don't add the Google Fonts stylesheet to the page. |
 | `theme` | `dark` (default), `light`, or `auto` to follow the viewer's light or dark system setting. |
 | `size="compact"` | One row: the record, the title and the play key, without the code. |
